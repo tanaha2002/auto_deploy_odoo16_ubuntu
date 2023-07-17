@@ -1,3 +1,1 @@
-scp -i ".\BBSW_Staging.pem" D:\Odoo16\auto_deploy\back_daily_db.sh ubuntu@ec2-18-143-92-192.ap-southeast-1.compute.amazonaws.com:/home/ubuntu
 
-scp -i ".\BBSW_Staging.pem" D:\Odoo16\auto_deploy\odoo16_re-install.sh ubuntu@ec2-18-143-92-192.ap-southeast-1.compute.amazonaws.com:/home/ubuntu
