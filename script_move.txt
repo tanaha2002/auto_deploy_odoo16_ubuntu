@@ -1,3 +1,13 @@
 scp -i ".\BBSW_Staging.pem" D:\Odoo16\auto_deploy\back_daily_db.sh ubuntu@ec2-18-143-92-192.ap-southeast-1.compute.amazonaws.com:/home/ubuntu
 
 scp -i ".\BBSW_Staging.pem" D:\Odoo16\auto_deploy\odoo16_re-install.sh ubuntu@ec2-18-143-92-192.ap-southeast-1.compute.amazonaws.com:/home/ubuntu
+
+
+move back:
+scp -i ".\BBSW_Staging.pem" ubuntu@ec2-18-143-92-192.ap-southeast-1.compute.amazonaws.com:/home/ubuntu/backup/BBSW_2023-07-13.zip D:\Odoo16
+scp -i ".\BBSW_Staging.pem" ubuntu@13.213.13.202:/home/ubuntu/backup/BBSW_CRM_2023_07_18.zip D:\Odoo16
+
+
+
+
+curl -X POST -F 'master_pwd=admin123' -F 'name=backup_testing' -F 'backup_format=zip' -o /home/ubuntu/backup_testing.zip http://localhost:8069/web/database/backup

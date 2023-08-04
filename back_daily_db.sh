@@ -1,22 +1,36 @@
 #!/bin/bash
 #vars
-BACKUP_DIR=/home/ubuntu/backup
-DB_NAME=BBSW_CRM
-ADMIN_PASSWORD = pass123
+#before run this script, make sure give it permission
+#chmod +x back_daily_db.sh
+BACKUP_DIR="/home/ubuntu/backup"
+ADMIN_PASSWORD="admin123"
+YEAR=$(date +%Y)
+MONTH=$(date +%m)
+DAY=$(date +%d)
+
 
 # Create backup dir (-p to avoid warning if already exists)
-mkdir -p $BACKUP_DIR
+mkdir -p "$BACKUP_DIR"
 
-#Create a backup
-curl -X POST \
-    -F "master_pwd=${ADMIN_PASSWORD}" \
-    -F "name=${DB_NAME}" \
-    -F "backup_format=zip" \
-    -o ${BACKUP_DIR}/${DB_NAME}_$(date +%F).zip \
-    http://bbdesk.blueboltsoftware.com:8069/web/database/backup
+#get list database
+databases=$(curl -H "Content-Type: application/json" -d "{}" http://localhost:8069/web/database/list | jq -r '.result[]')
+
+
+for db_name in $databases; do
+    BACKUP_NAME="${db_name}_${YEAR}_${MONTH}_${DAY}"
+    # Create a backup
+    curl -X POST \
+        -F "master_pwd=$ADMIN_PASSWORD" \
+        -F "name=$db_name" \
+        -F "backup_format=zip" \
+        -o "$BACKUP_DIR/$BACKUP_NAME.zip" \
+        http://localhost:8069/web/database/backup
+done
+
 
 # backup only hold for lates 10 days
-find $BACKUP_DIR -type f -mtime +10 -name "${DB_NAME}.*.zip" -delete
+find $BACKUP_DIR -type f -mtime +10 -name "*.zip" -delete
+
 
 #guide to use
 #before run this script, make sure give it permission
