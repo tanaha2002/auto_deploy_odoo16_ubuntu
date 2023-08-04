@@ -10,4 +10,15 @@ scp -i ".\BBSW_Staging.pem" ubuntu@13.213.13.202:/home/ubuntu/backup/BBSW_CRM_20
 
 
 
-curl -X POST -F 'master_pwd=admin123' -F 'name=backup_testing' -F 'backup_format=zip' -o /home/ubuntu/backup_testing.zip http://localhost:8069/web/database/backup
+curl -X POST -F 'master_pwd=pass123' -F 'name=BBSW_CRM' -F 'backup_format=zip' -o /home/ubuntu/backup/BBSW_CRM_2023_08_03.zip http://localhost:8069/web/database/backup
+
+
+curl -F 'master_pwd=pass123' -F backup_file=@/home/ubuntu/backup/BBSW_CRM_2023_08_03.zip -F 'copy=true' -F 'name=BBSW_CRM' http://localhost:8069/web/database/restore
+
+
+get database list:
+curl -H "Content-Type: application/json" -d "{}" http://localhost:8069/web/database/list
+
+
+
+databases=$(curl -H "Content-Type: application/json" -d "{}" http://localhost:8069/web/database/list | jq -r '.result[]')
