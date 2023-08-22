@@ -2,6 +2,7 @@
 #vars
 #before run this script, make sure give it permission
 #chmod +x back_daily_db.sh
+#sudo apt-get install jq
 BACKUP_DIR="/home/ubuntu/backup"
 ADMIN_PASSWORD="admin123"
 YEAR=$(date +%Y)

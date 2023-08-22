@@ -54,7 +54,7 @@ dpkg -l | grep postgresql
 #install postgresql
 sudo apt-get install postgresql -y
 sudo su - postgres -c "createuser -s $USER_NAME" 
-
+sudo apt-get install jq
 #--------SECTION 3 : INSTALL ODOO------------------#
 #create directory odoo
 sudo mkdir /opt/odoo
